@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import config from "../../config";
 import FormError from "../layout/FormError";
+import { Link } from "react-router-dom";
 
 const SignInForm = () => {
   const [userPayload, setUserPayload] = useState({ email: "", password: "" });
@@ -10,7 +11,7 @@ const SignInForm = () => {
   const validateInput = (payload) => {
     setErrors({});
     const { email, password } = payload;
-    const emailRegexp = config.validation.email.regexp;
+    const emailRegexp = config.validation.email.regexp.emailRegex;
     let newErrors = {};
     if (!email.match(emailRegexp)) {
       newErrors = {
@@ -30,8 +31,8 @@ const SignInForm = () => {
   };
 
   const onSubmit = async (event) => {
-    event.preventDefault()
-    validateInput(userPayload)
+    event.preventDefault();
+    validateInput(userPayload);
     try {
       if (Object.keys(errors).length === 0) {
         const response = await fetch("/api/v1/user-sessions", {
@@ -39,20 +40,23 @@ const SignInForm = () => {
           body: JSON.stringify(userPayload),
           headers: new Headers({
             "Content-Type": "application/json",
-          })
-        })
-        if(!response.ok) {
-          const errorMessage = `${response.status} (${response.statusText})`
-          const error = new Error(errorMessage)
-          throw(error)
+          }),
+        });
+        if (!response.ok) {
+          if(response?.body) {
+            const  responseData = await response.json()
+            const errMessage = responseData.error
+            return setErrors({ password: errMessage })
+          } else {
+            throw new Error(`${response.status}: ${response.statusText}`)
+          }
         }
-        const userData = await response.json()
-        setShouldRedirect(true)
+        setShouldRedirect(true);
       }
-    } catch(err) {
-      console.error(`Error in fetch: ${err.message}`)
+    } catch (err) {
+      console.error(`Error in fetch: ${err.message}`);
     }
-  }
+  };
 
   const onInputChange = (event) => {
     setUserPayload({
@@ -66,32 +70,39 @@ const SignInForm = () => {
   }
 
   return (
-    <div className="grid-container" onSubmit={onSubmit}>
-      <h1>Sign In</h1>
-      <form>
-        <div>
-          <label>
-            Email
-            <input type="text" name="email" value={userPayload.email} onChange={onInputChange} />
-            <FormError error={errors.email} />
-          </label>
-        </div>
-        <div>
-          <label>
-            Password
-            <input
-              type="password"
-              name="password"
-              value={userPayload.password}
-              onChange={onInputChange}
-            />
-            <FormError error={errors.password} />
-          </label>
-        </div>
-        <div>
+    <div className="form-background">
+      <div className="form grid-container" onSubmit={onSubmit}>
+        <h2>Sign in to Tax Estimator</h2>
+        <form>
+          <div>
+            <label>
+              Email
+              <input type="text" name="email" value={userPayload.email} onChange={onInputChange} />
+              <FormError error={errors.email} />
+            </label>
+          </div>
+          <div>
+            <label>
+              Password
+              <input
+                type="password"
+                name="password"
+                value={userPayload.password}
+                onChange={onInputChange}
+              />
+              <FormError error={errors.password} />
+            </label>
+          </div>
+
           <input type="submit" className="button" value="Sign In" />
-        </div>
-      </form>
+          <h5>
+            Click to sign up
+            <Link to="/users/new" className="link">
+              Sign up here
+            </Link>
+          </h5>
+        </form>
+      </div>
     </div>
   );
 };
