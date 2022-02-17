@@ -6,14 +6,15 @@
  * @param {Knex} knex
  */
 exports.up = async (knex) => {
-  return knex.schema.createTable("expenses", (table) => {
-    
+  return knex.schema.createTable("earnings", (table) => {
     table.bigIncrements("id")
-    table.decimal("mileage")
-    table.decimal("communications")
-    table.decimal("amenities")
-    table.decimal("supplies")
-    table.decimal("tolls")
+    table.decimal("uber")
+    table.decimal("lyft")
+    table.decimal("ubereats")
+    table.decimal("doordash")
+    table.decimal("grubhub")
+    table.decimal("instacart")
+    table.decimal("other")
     table.bigInteger("userId").notNullable().index().unsigned().references("users.id")
     table.timestamp("createdAt").notNullable().defaultTo(knex.fn.now())
     table.timestamp("updatedAt").notNullable().defaultTo(knex.fn.now())
@@ -24,5 +25,5 @@ exports.up = async (knex) => {
  * @param {Knex} knex
  */
 exports.down = (knex) => {
-  return knex.schema.dropTableIfExists("expenses")
+  return knex.schema.dropTableIfExists("earnings")
 }

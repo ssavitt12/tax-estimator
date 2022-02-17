@@ -1,8 +1,8 @@
 const Model = require("./Model");
 
-class Expense extends Model {
+class Earnings extends Model {
   static get tableName() {
-    return "expenses";
+    return "earnings";
   }
 
   static get jsonSchema() {
@@ -10,12 +10,13 @@ class Expense extends Model {
       type: "object",
       required: ["userId"],
       properties: {
-        userId: { type: ["integer", "string"] },
-        mileage: { type: "decimal" },
-        communications: { type: "decimal" },
-        amenities: { type: "decimal" },
-        tolls: { type: "decimal" },
-        supplies: { type: "decimal" },
+        userId: { type: "decimal" },
+        uber: { type: "decimal" },
+        lyft: { type: "decimal" },
+        ubereats: { type: "decimal" },
+        doordash: { type: "decimal" },
+        grubhub: { type: "decimal" },
+        other: { type: "decimal" }
       },
     };
   }
@@ -28,11 +29,11 @@ class Expense extends Model {
         relation: Model.BelongsToOneRelation,
         modelClass: User,
         join: {
-          from: "expenses.userId",
+          from: "earnings.userId",
           to: "users.id",
         },
       },
     };
   }
 }
-module.exports = Expense;
+module.exports = Earnings;

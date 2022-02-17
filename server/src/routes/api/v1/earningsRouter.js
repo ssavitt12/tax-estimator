@@ -2,26 +2,26 @@ import express from "express"
 import { ValidationError } from "objection"
 
 import { User } from "../../../models/index.js"
-import ExpensesSerializer from "../../../serializers/ExpensesSerializer.js"
+import EarningsSerializer from "../../../serializers/EarningsSerializer.js"
 import cleanUserInput from "../../../services/cleanUserInput.js"
 
-const expensesRouter = new express.Router({ mergeParams: true })
+const earningsRouter = new express.Router({ mergeParams: true })
 
-expensesRouter.post("/", async (req, res) => {
+earningsRouter.post("/", async (req, res) => {
   const { id } = req.params
-  const expenseData = {
+  const earningsData = {
     ...cleanUserInput(req.body),
     userId: req.user.id,
-    expenseId: id,
+    earningsId: id,
   }
 
   try {
     const user = await User.query().findById(id)
-    const expense = await user.$relatedQuery("expense").insertAndFetch(expenseData)
+    const earnings = await user.$relatedQuery("earnings").insertAndFetch(earningsData)
 
-    const serializedExpense = await ExpensesSerializer.getDetail(expense)
+    const serializedEarnings = await EarningsSerializer.getDetail(earnings)
 
-    res.status(200).json({ expense: serializedExpense })
+    res.status(200).json({ earnings: serializedEarnings })
   } catch (error) {
     if (error instanceof ValidationError) {
       return res.status(422).json({ errors: error.data })
@@ -31,4 +31,4 @@ expensesRouter.post("/", async (req, res) => {
   }
 })
 
-export default expensesRouter
+export default earningsRouter
