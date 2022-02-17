@@ -2,12 +2,12 @@ import { Expense } from "../../models/index.js";
 
 class ExpensesSeeder {
   static async seed() {
-    const addInfoCollection = [
+    const ExpensesCollection = [
       {
         userId: 1,
         mileage: 65992,
-        communications: 1020.99,
-        tolls: 1130.35,
+        communications: 1029,
+        tolls: 1135,
       },
       {
         userId: 2,

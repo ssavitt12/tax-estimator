@@ -8,6 +8,8 @@ import RegistrationForm from "./registration/RegistrationForm";
 import SignInForm from "./authentication/SignInForm";
 import TopBar from "./layout/TopBar";
 import ExpensesShow from "./layout/ExpensesShow";
+import LandingPage from "./layout/LandingPage";
+import AuthenticatedRoute from "./authentication/AuthenticatedRoute.js"
 
 
 const App = (props) => {
@@ -29,13 +31,11 @@ const App = (props) => {
     <Router>
       <TopBar user={currentUser} />
       <Switch>
-        <Route exact path="/">
-          <h2>Hello from react</h2>
-        </Route>
+        <Route exact path="/" component={LandingPage} />
         <Route exact path="/expenses" component={ExpensesShow} />
         <Route exact path="/users/new" component={RegistrationForm} />
         <Route exact path="/user-sessions/new" component={SignInForm} />
-        <AuthenticatedRoute 
+        {/* <AuthenticatedRoute 
           exact path ="/expenses"
           component={ExpensesForm}
           user={currentUser}
@@ -44,8 +44,8 @@ const App = (props) => {
           exact path="/user-profile"
           component={UserProfile}
           user={currentUser}
-        />
-        <Route exact path="/expenses" component={ExpensesList} />
+        /> */}
+        {/* <Route exact path="/expenses" component={ExpensesList} /> */}
         <Route exact path="/expenses/:id">
           <ExpensesShow user={currentUser} />
         </Route>
