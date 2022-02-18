@@ -8,7 +8,8 @@
   "name": "tax-estimator-client",
   "version": "0.0.1",
   "engines": {
-    "node": "^14.15"
+    "node": "^14.15",
+    "yarn": "1.22.10"
   },
   "devDependencies": {
     "@hot-loader/react-dom": "~16.13",
