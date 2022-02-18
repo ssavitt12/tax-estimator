@@ -1,7 +1,7 @@
 import { Expense } from "../models/index.js";
 
 class ExpenseSerializer {
-  static async getExpenseDetail(expense) {
+  static async getSummary(expense) {
     const allowedAttributes = [
       "userId",
       "mileage",
@@ -10,14 +10,16 @@ class ExpenseSerializer {
       "tolls",
       "supplies",
     ];
-
-    let serializedExpense = {};
-    for (const attribute of allowedAttributes) {
-      serializedExpense[attribute] = expense[attribute];
-    }
-
-    return serializedExpense;
   }
+
+    static async getDetail(review) {
+      const user = await review.$relatedQuery("user")
+
+      return {
+        ...this.getSummary(review),
+        userName: user.name
+      }
+    }
 
   static async getExpenseCollectionDetails(expenses) {
     return Promise.all(
