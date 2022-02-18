@@ -1,5 +1,5 @@
 import { User } from "../models/index.js";
-//import ExpensesSerializer from "./ExpensesSerializer.js";
+import ExpensesSerializer from "./ExpensesSerializer.js";
 
 
 class UserSerializer {

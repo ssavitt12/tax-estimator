@@ -2,8 +2,8 @@
 import { Earnings } from "../models/index.js"
 
 class EarningsSerializer {
-    static async getEarnings(earnings, userId) {
-        const user = await earnings.$relatedQuery("user")
+    static async getSummary(earnings, userId) {
+        const user = await earnings.$relatedQuery("user")    
 
         const allowedAttributes = [
             "id",
@@ -16,19 +16,21 @@ class EarningsSerializer {
             "instacart",
             "other",
         ]
-    }
-    static async getDetail(earnings) {
-        const user = await earnings.$relatedQuery("user")
 
+        let serializedEarnings = {}
+        for (const attribute of allowedAttributes) {
+            serializedEarnings[attribute] = earnings[attribute]
+        }
+    
         return {
             ...this.getSummary(earnings),
             userName: user.name
         }
     }
 
-    static async getDetailCollection(earnings) {
+    static async getDetailCollection(earnings, userId) {
         return Promise.all(earnings.map((earning) => {
-            return this.getDetail(earning)
+            return this.getDetail(earning, userId)
         }))
     }
 }
