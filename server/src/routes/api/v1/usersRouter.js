@@ -3,7 +3,9 @@ import passport from "passport"
 import { User } from "../../../models/index.js"
 import objection from "objection"
 import UserSerializer from "../../../serializers/UserSerializer.js"
-//import userInfoRouter from "./userInfoRouter.js"
+import expensesRouter from "../v1/expensesRouter.js"
+import earningsRouter from "../v1/earningsRouter.js"
+
 
 const { ValidationError } = objection
 
@@ -40,6 +42,7 @@ usersRouter.post("/", async (req, res) => {
   }
 })
 
-//usersRouter.use("/:userId/:expenseId", userExpensesRouter)
+usersRouter.use("/:id/expenses", expensesRouter)
+usersRouter.use("/:id/earnings", earningsRouter)
 
 export default usersRouter

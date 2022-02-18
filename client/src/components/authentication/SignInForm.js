@@ -43,12 +43,12 @@ const SignInForm = () => {
           }),
         });
         if (!response.ok) {
-          if(response?.body) {
-            const  responseData = await response.json()
-            const errMessage = responseData.error
-            return setErrors({ password: errMessage })
+          if (response?.body) {
+            const responseData = await response.json();
+            const errMessage = responseData.error;
+            return setErrors({ password: errMessage });
           } else {
-            throw new Error(`${response.status}: ${response.statusText}`)
+            throw new Error(`${response.status}: ${response.statusText}`);
           }
         }
         setShouldRedirect(true);
@@ -66,7 +66,7 @@ const SignInForm = () => {
   };
 
   if (shouldRedirect) {
-    location.href = "/";
+    location.href = "/expenses";
   }
 
   return (
