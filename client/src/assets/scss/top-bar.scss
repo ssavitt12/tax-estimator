@@ -1,5 +1,5 @@
 .menu-container {
-  background-color: var(--slate);
+  background-color: black;
   width: 100%;
   vertical-align: middle;
   padding: 15px 20px;
@@ -13,7 +13,8 @@
 .header-left,
 .header-right,
 .header ul {
-  background-color: transparent;
+  background-color: black;
+  color: white
 }
 
 ul.menu {
@@ -28,8 +29,8 @@ ul.menu {
 
 .header {
   max-width: 1400px;
-  margin: auto;
-  background-color: transparent;
+  margin: none;
+  background-color: black;
   display: flex;
   flex-wrap: nowrap;
   justify-content: space-between;
@@ -42,22 +43,22 @@ ul.menu {
   font-size: 1.25rem;
   padding: 0px;
 } */
-
-/* .mobile-logo {
-  display: none;
+.header-left a:hover {
+  color: var(--white);
 }
+
 .header .menu a:hover {
-  color: var(--yellow);
+  color: var(--white);
 }
 
 .header .menu a:active {
-  color: var(--orange);
+  color: var(--white);
 }
 
 .header {
   max-width: 1400px;
   margin: auto;
-  background-color: transparent;
+  background-color: black;
   display: flex;
   flex-wrap: nowrap;
   justify-content: space-between;
@@ -113,4 +114,35 @@ ul.menu {
     letter-spacing: 1px;
     font-size: 1.1rem;
   }
-} */ 
+}
+
+.header a:hover {
+  color: lightskyblue;
+}
+
+.header .menu a{
+  color: white;
+  font-size: larger;
+}
+.header .menu-left h4{
+  color: white;
+  
+.header a:hover {
+  color: lightskyblue;
+}
+
+.header-right a:hover {
+  color: lightskyblue;
+}
+
+}
+
+.header a {
+  color: white;
+}
+
+.logo {
+  width: 40%;
+  height: 30%;
+
+}

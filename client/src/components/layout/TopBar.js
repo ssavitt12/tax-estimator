@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import SignOutButton from "../authentication/SignOutButton";
 import AddExpensesButton from "./AddExpensesButton.js";
-//import Logo from "../../assets/logo.svg";
+import Logo from "../../assets/logo.jpg"
 //import MobileLogo from "../../assets/mobile-logo.svg";
 
 const TopBar = ({ user }) => {
@@ -37,8 +37,7 @@ const TopBar = ({ user }) => {
       <div className="header">
         <div className="header-left">
           <Link to="/">
-            {/* <img src={Logo} className="logo" alt="Taxes" /> */}
-            {/* <img src={MobileLogo} className="mobile-logo" alt="Taxes" /> */}
+            <img src={Logo} className="logo" alt="Tax Master"/>
           </Link>
         </div>
         <div className="header-right">

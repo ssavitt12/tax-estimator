@@ -5,6 +5,7 @@ import { connection } from "../boot.js"
 import UserSeeder from "./seeders/UserSeeder.js"
 import ExpensesSeeder from "./seeders/ExpensesSeeder.js"
 import EarningsSeeder from "./seeders/EarningsSeeder.js"
+import TaxProfileSeeder from "./seeders/TaxProfileSeeder.js"
 
 class Seeder {
   static async seed() {
@@ -17,6 +18,9 @@ class Seeder {
 
     console.log("seeding earnings....")
     await EarningsSeeder.seed()
+
+    console.log("seeding tax profile....")
+    await TaxProfileSeeder.seed()
 
     console.log("Done!")
     await connection.destroy()

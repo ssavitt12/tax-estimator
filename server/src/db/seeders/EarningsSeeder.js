@@ -1,4 +1,4 @@
-import { Earnings } from "../../models/index.js";
+import { Earning } from "../../models/index.js";
 
 class EarningsSeeder {
   static async seed() {
@@ -25,9 +25,9 @@ class EarningsSeeder {
     ]
 
     for (const singleEarning of EarningsCollection) {
-      const existingEarning = await Earnings.query().findOne({ userId: singleEarning.userId })
+      const existingEarning = await Earning.query().findOne({ userId: singleEarning.userId })
       if (!existingEarning) {
-        await Earnings.query().insert(singleEarning)
+        await Earning.query().insert(singleEarning)
       }
     }
   }

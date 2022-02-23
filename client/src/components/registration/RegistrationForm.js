@@ -108,7 +108,7 @@ const RegistrationForm = () => {
       <div className="form grid-container">
         <h2>Create An Account</h2>
         <form onSubmit={onSubmit}>
-          <div>
+          <div className ="registration-buttons">
             <label>
               Email
               <input type="text" name="email" value={userPayload.email} onChange={onInputChange} />

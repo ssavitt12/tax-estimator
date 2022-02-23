@@ -1,6 +1,7 @@
 // include all of your models here using CommonJS requires
 const User = require("./User")
 const Expense = require("./Expense")
-const Earnings = require("./Earnings")
+const Earning = require("./Earning")
+const TaxProfile = require ("./TaxProfile")
 
-module.exports = { User, Expense, Earnings };
+module.exports = { User, Expense, Earning, TaxProfile };

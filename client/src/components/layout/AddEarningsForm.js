@@ -1,6 +1,12 @@
-import React, { useState } from "react"
+import React, { Component, useState, useEffect } from "react";
+import { Redirect, useHistory } from "react-router-dom";
+import { withRouter } from "react-router-dom";
+import { Link } from "react-router-dom"
 
-const AddEarningsForm = ({ addEarnings }) => {
+import ErrorList from "./ErrorList"
+import translateServerErrors from "../../services/translateServerErrors"
+
+const AddEarningsForm = ({ user }) => {
   const defaultInput = {
     uber: "",
     lyft: "",
@@ -11,111 +17,145 @@ const AddEarningsForm = ({ addEarnings }) => {
     other: ""
   }
 
-  const [newEarnings, setNewEarnings] = useState(defaultInput)
+  const [newEarning, setNewEarning] = useState(defaultInput)
+  const [errors, setErrors] = useState([]);
+  const [shouldRedirect, setShouldRedirect] = useState(false);
 
-  const handleInput = (event) => {
-    const { name, value } = event.currentTarget
-    setNewEarnings({
-      ...newEarnings,
-      [name]: value,
-    })
-  }
-
-  const handleSubmit = (event) => {
-    event.preventDefault()
-
-    const earningsData = {
-      uber: parseInt(newEarnings.uber),
-      lyft: parseInt(newEarnings.lyft),
-      ubereats: parseInt(newEarnings.ubereats),
-      doordash: parseInt(newEarnings.doordash),
-      grubhub: parseInt(newEarnings.grubhub),
-      instacart: parseInt(newEarnings.instacart),
-      other: parseInt(newEarnings.other)
-      
+  
+ 
+  const getNewEarning = async (newEarningBody) => {
+      try {
+        const response = await fetch("/api/v1/earnings/${id}", {
+          method: "POST",
+          headers: new Headers({
+            "Content-Type": "application/json"
+          }),
+          body: JSON.stringify(newEarningBody)
+        })
+        if (!response.ok) {
+          if (response.status === 422) {
+            const body = await response.json()
+            console.log(body)
+            const errors = translateServerErrors(body.errors)
+            setErrors(errors)
+          }
+          const errorMessage = `${response.status} (${response.statusText})`
+          const error = new Error(errorMessage)
+          throw error
+        }
+        const body = await response.json()
+        console.log("New earnings successfully created", body)
+        setShouldRedirect(true)
+      } catch (err) {
+        console.error(`Error in fetch: ${err.message}`)
+      }
     }
-    addEarnings(earningsData)
-  }
+    
+    const handleInputChange = (event) => {
+    const { name, value } = event.currentTarget;
+    setNewEarning({
+      ...newEarning,
+      [name]: value,
+      });
+    }
+    const handleSubmit = (event) => {
+      event.preventDefault()
+      getNewEarning()
+    }
+  
+    const clearForm = () => {
+        setNewEarning(defaultInput);
+      };
+    
+    if (shouldRedirect) {
+        return <Redirect push to="/" />;
+    }
 
   return (
     <div className="earnings-form">
+      
+      <h2>Add your earnings</h2>
+
+      <ErrorList errors={errors} />
+
+      <div className="form-data">
       <form onSubmit={handleSubmit}>
         <label className="uber">
           Earnings from Uber:
           <input
             type="text"
-            name="uberText"
-            onChange={handleInput}
-            value={newEarnings.uber}
-          />
-        </label>
-        <label className="uber">
-          Earnings from Uber:
-          <input
-            type="text"
-            name="uberText"
-            onChange={handleInput}
-            value={newEarnings.uber}
+            name="uber"
+            onChange={handleInputChange}
+            value={newEarning.uber}
           />
         </label>
         <label className="lyft">
           Earnings from Lyft:
           <input
             type="text"
-            name="lyftText"
-            onChange={handleInput}
-            value={newEarnings.lyft}
+            name="lyft"
+            onChange={handleInputChange}
+            value={newEarning.lyft}
           />
         </label>
         <label className="ubereats">
           Earnings from UberEats:
           <input
             type="text"
-            name="uberEatsText"
-            onChange={handleInput}
-            value={newEarnings.ubereats}
+            name="ubereats"
+            onChange={handleInputChange}
+            value={newEarning.ubereats}
           />
         </label>
         <label className="doordash">
           Earnings from Doordash:
           <input
             type="text"
-            name="doordashText"
-            onChange={handleInput}
-            value={newEarnings.doordash}
+            name="doordash"
+            onChange={handleInputChange}
+            value={newEarning.doordash}
           />
         </label>
         <label className="grubhub">
           Earnings from Grubhub:
           <input
             type="text"
-            name="grubhubText"
-            onChange={handleInput}
-            value={newEarnings.grubhub}
+            name="grubhub"
+            onChange={handleInputChange}
+            value={newEarning.grubhub}
           />
         </label>
         <label className="instacart">
           Earnings from Instacart:
           <input
             type="text"
-            name="instacartText"
-            onChange={handleInput}
-            value={newEarnings.instacart}
+            name="instacart"
+            onChange={handleInputChange}
+            value={newEarning.instacart}
           />
         </label>
         <label className="other">
           Earnings from Other Apps:
           <input
             type="text"
-            name="otherText"
-            onChange={handleInput}
-            value={newEarnings.other}
+            name="other"
+            onChange={handleInputChange}
+            value={newEarning.other}
           />
         </label>
-        <input className="button" type="submit" value="Submit" />
+
+        <div className="new-group">
+        <Link to={`/taxProfile`}>
+        <input className="button" type="submit" value="Next: Tax Summary" />
+        </Link>
+        </div>
+
+        <input className="button" type="button" value="Clear Form" onClick={clearForm} />
+
       </form>
+      </div>
     </div>
   )
 }
 
-export default AddEarningsForm
+export default withRouter(AddEarningsForm)

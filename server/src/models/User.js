@@ -38,16 +38,36 @@ class User extends uniqueFunc(Model) {
 
   static get relationMappings() {
     const Expense = require("./Expense");
+    const Earnings = require("./Earning")
+    const TaxProfile = require("./TaxProfile")
     
     return {
       expenses: {
-        relation: Model.HasManyRelation,
+        relation: Model.HasOneRelation,
         modelClass: Expense,
         join: {
           from: "users.id",
           to: "expenses.userId",
         },
       },
+
+      earnings: {
+        relation: Model.HasOneRelation,
+        modelClass: Earnings,
+        join: {
+          from: "users.id",
+          to: "earnings.userId"
+        },
+      },
+
+      taxProfile: {
+        relation: Model.HasOneRelation,
+        modelClass: TaxProfile,
+        join: {
+          from: "users.id",
+          to: "taxProfile.userId"
+        }
+      }
     }
   }
 

@@ -7,48 +7,58 @@ import "../assets/scss/main.scss";
 import RegistrationForm from "./registration/RegistrationForm";
 import SignInForm from "./authentication/SignInForm";
 import TopBar from "./layout/TopBar";
-import ExpensesShow from "./layout/ExpensesShow";
 import LandingPage from "./layout/LandingPage";
 import AuthenticatedRoute from "./authentication/AuthenticatedRoute.js"
-
+import AddExpensesForm from "./layout/AddExpensesForm";
+import AddEarningsForm from "./layout/AddEarningsForm"
+import TaxProfileForm from "./layout/TaxProfileForm";
+import UserProfile from "./layout/UserProfile";
 
 const App = (props) => {
   const [currentUser, setCurrentUser] = useState(null);
   const fetchCurrentUser = async () => {
     try {
-      const user = await getCurrentUser()
-      setCurrentUser(user)
-    } catch(err) {
-      setCurrentUser(null)
+      const user = await getCurrentUser();
+      setCurrentUser(user);
+    } catch (err) {
+      setCurrentUser(null);
     }
-  }
+  };
 
   useEffect(() => {
-    fetchCurrentUser()
-  }, [])
+    fetchCurrentUser();
+  }, []);
 
   return (
     <Router>
       <TopBar user={currentUser} />
       <Switch>
         <Route exact path="/" component={LandingPage} />
-        <Route exact path="/expenses" component={ExpensesShow} />
         <Route exact path="/users/new" component={RegistrationForm} />
         <Route exact path="/user-sessions/new" component={SignInForm} />
-        {/* <AuthenticatedRoute 
+        <AuthenticatedRoute 
           exact path ="/expenses"
-          component={ExpensesForm}
+          component={AddExpensesForm}
           user={currentUser}
         />
+        <AuthenticatedRoute
+          exact path="/earnings"
+          component={AddEarningsForm}
+          user={currentUser}
+        />
+        <AuthenticatedRoute
+          exact path="/taxprofile"
+          component={TaxProfileForm}
+          user={currentUser}
+        />
+
         <AuthenticatedRoute
           exact path="/user-profile"
           component={UserProfile}
           user={currentUser}
-        /> */}
-        {/* <Route exact path="/expenses" component={ExpensesList} /> */}
-        <Route exact path="/expenses/:id">
-          <ExpensesShow user={currentUser} />
-        </Route>
+        />
+        
+        
       </Switch>
     </Router>
   );

@@ -1,8 +1,5 @@
-import { User } from "../models/index.js";
-import ExpensesSerializer from "./ExpensesSerializer.js";
-
-
 class UserSerializer {
+
   static async getUserDetail(user) {
     const allowedAttributes = ["name", "email", "id"];
 
@@ -11,8 +8,11 @@ class UserSerializer {
       serializedUser[attribute] = user[attribute];
     }
 
-    const expenses = await user.$relatedQuery("expenses")
-    serializedUser.expenses = await ExpensesSerializer.getExpensesCollectionDetails(expenses)
+    serializedUser.expenses = await user.$relatedQuery("expenses")
+
+    serializedUser.earnings =await user.$relatedQuery("earnings")
+
+    serializedUser.taxProfile = await user.$relatedQuery("taxprofile")
 
     return serializedUser;
   }
