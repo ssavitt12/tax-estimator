@@ -44,7 +44,7 @@ export class FormTaxProfileDetails extends Component {
           </label>
 
           <input className="button" type="button" value="Back " onClick={this.back} />
-          <input className="button" type="button" value="Sumbit " onClick={this.continue}/>
+          <input className="button" type="button" value="Submit " onClick={this.continue}/>
           
         </form>
         </div>
