@@ -94,12 +94,12 @@ const SignInForm = () => {
             </label>
           </div>
 
-          <Link to="/expenses" className="link">
+          
           <input type="submit" className="button" value="Sign In" />
-          </Link>
+          
 
           <h5>
-            Click to sign up: 
+            Click to sign up:&nbsp;
             <Link to="/users/new" className="link">
               Sign up here
             </Link>

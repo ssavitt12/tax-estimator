@@ -1,20 +1,27 @@
 class UserSerializer {
 
-  static async getUserDetail(user) {
-    const allowedAttributes = ["name", "email", "id"];
+  static getSummary(users) {
+    const allowedAttributes = ["id", "name", "email"]
 
-    let serializedUser = {};
+    const serializedUsers = users.map((user) => {
+      let serializedUser = {}
+      for (const attribute of allowedAttributes) {
+        serializedUser[attribute = use[attribute]]
+      }
+      return serializedUser
+    })
+    return serializedUsers
+  }
+
+  static async getDetails(user) {
+    const allowedAttributes = ["id", "name", "email"];
+
+    let serializedUser = {}
     for (const attribute of allowedAttributes) {
-      serializedUser[attribute] = user[attribute];
+      serializedUser[attribute] = user[attribute]
     }
-
-    serializedUser.expenses = await user.$relatedQuery("expenses")
-
-    serializedUser.earnings =await user.$relatedQuery("earnings")
-
-    serializedUser.taxProfile = await user.$relatedQuery("taxprofile")
-
-    return serializedUser;
+    serializedUser.tasks = await user.$relatedQuery("taxes")
+    return serializedUser
   }
 }
 

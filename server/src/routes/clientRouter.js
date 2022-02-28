@@ -5,12 +5,10 @@ const router = new express.Router();
 
 const clientRoutes = [
   "/",
-  "/expenses",
-  "/earnings",
-  "/taxprofile",
   "/user-sessions/new",
   "/users/new",
   "/user-profile",
+  "/userForm"
 ];
 router.get(clientRoutes, (req, res) => {
   res.sendFile(getClientIndexPath());

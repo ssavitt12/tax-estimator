@@ -9,10 +9,10 @@ import SignInForm from "./authentication/SignInForm";
 import TopBar from "./layout/TopBar";
 import LandingPage from "./layout/LandingPage";
 import AuthenticatedRoute from "./authentication/AuthenticatedRoute.js"
-import AddExpensesForm from "./layout/AddExpensesForm";
-import AddEarningsForm from "./layout/AddEarningsForm"
-import TaxProfileForm from "./layout/TaxProfileForm";
+
 import UserProfile from "./layout/UserProfile";
+import UserForm from "./layout/UserForm";
+
 
 const App = (props) => {
   const [currentUser, setCurrentUser] = useState(null);
@@ -36,19 +36,10 @@ const App = (props) => {
         <Route exact path="/" component={LandingPage} />
         <Route exact path="/users/new" component={RegistrationForm} />
         <Route exact path="/user-sessions/new" component={SignInForm} />
-        <AuthenticatedRoute 
-          exact path ="/expenses"
-          component={AddExpensesForm}
-          user={currentUser}
-        />
+
         <AuthenticatedRoute
-          exact path="/earnings"
-          component={AddEarningsForm}
-          user={currentUser}
-        />
-        <AuthenticatedRoute
-          exact path="/taxprofile"
-          component={TaxProfileForm}
+          exact path="/userForm"
+          component={UserForm}
           user={currentUser}
         />
 

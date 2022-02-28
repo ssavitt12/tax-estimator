@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import SignOutButton from "../authentication/SignOutButton";
-import AddExpensesButton from "./AddExpensesButton.js";
+import UserFormButton from "./UserFormButton.js";
 import Logo from "../../assets/logo.jpg"
 //import MobileLogo from "../../assets/mobile-logo.svg";
 
@@ -21,7 +21,7 @@ const TopBar = ({ user }) => {
 
   const authenticatedListItems = [
     <li key="add-data">
-      <AddExpensesButton userId={user?.id} />
+      <UserFormButton userId={user?.id} />
     </li>,
     <li key="profile">
       <Link to="/user-profile">Profile</Link>
