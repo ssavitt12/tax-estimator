@@ -18,6 +18,10 @@
   },
   "engines": {
     "node": "^14.15",
-    "yarn": "1.22.10"
+    "yarn": "^1.22.10"
+  },
+  "dependencies": {
+    "material-ui": "^0.20.2",
+    "react-hooks-helper": "^1.6.0"
   }
 }

@@ -1,0 +1,24 @@
+.grid-container {
+  background-color: lightblue;
+  max-width: 700px;
+  padding-top: 5%;
+  text-align: center;
+  margin: auto;
+}
+
+.grid-container cell {
+  background-color: beige;
+}
+
+.grid-container h3 {
+  font-weight: bolder;
+}
+
+.summary h3{
+  font-style: italic;
+}
+
+.summary h3:hover {
+  color: var(--green);
+}
+

@@ -66,13 +66,13 @@ const SignInForm = () => {
   };
 
   if (shouldRedirect) {
-    location.href = "/expenses";
+    location.href = "/";
   }
 
   return (
     <div className="form-background">
       <div className="form grid-container" onSubmit={onSubmit}>
-        <h2>Sign in to Tax Estimator</h2>
+        <h2>Sign in to Tax Master</h2>
         <form>
           <div>
             <label>
@@ -94,9 +94,12 @@ const SignInForm = () => {
             </label>
           </div>
 
+          
           <input type="submit" className="button" value="Sign In" />
+          
+
           <h5>
-            Click to sign up
+            Click to sign up:&nbsp;
             <Link to="/users/new" className="link">
               Sign up here
             </Link>

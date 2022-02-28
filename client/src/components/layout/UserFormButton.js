@@ -1,11 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const AddExpensesButton = () => {
+const UserFormButton = () => {
   return (
-    <Link className="header-link" to="/expenses/">
+    <Link className="header-link" to="/userForm/">
       Calculate Taxes Here!
     </Link>
   );
 };
-export default AddExpensesButton;
+export default UserFormButton;

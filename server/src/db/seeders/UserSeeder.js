@@ -14,7 +14,7 @@ class UserSeeder {
     });
     await User.query().insert({
       name: "Mireille",
-      email: "m@m.com",
+      email: "lm@l.com",
       password: "password",
     });
   }
